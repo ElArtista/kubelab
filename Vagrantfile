@@ -18,7 +18,7 @@ k3s_first_worker_node_ip = '10.3.3.20'
 k3s_token = %x[ openssl rand -hex 32 ]
 
 def setup_node(vm)
-  vm.box = "generic/alpine312"
+  vm.box = "generic/alpine313"
   vm.provider :libvirt do |lv|
     lv.default_prefix = ""
     lv.memory = 1024
