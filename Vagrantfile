@@ -21,9 +21,8 @@ def setup_node(vm)
   vm.box = "generic/alpine313"
   vm.provider :libvirt do |lv|
     lv.default_prefix = ""
-    lv.memory = 1024
+    lv.memory = 2048
     lv.storage_pool_name = "disks"
-    lv.connect_via_ssh = true
   end
   vm.provision "shell", inline: <<-SHELL
     # Disable swap
