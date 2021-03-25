@@ -1,0 +1,11 @@
+duckdns:
+  token: {{ .Values.duckdns.token }}
+clusterIssuer:
+  email: {{ .Values.duckdns.email }}
+  production:
+    create: true
+  staging:
+    create: true
+certManager:
+  namespace: {{ .Namespace }}
+logLevel: 2

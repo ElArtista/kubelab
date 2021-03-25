@@ -1,0 +1,29 @@
+repositories:
+  # Jetstack charts, https://github.com/jetstack/cert-manager/blob/master/deploy/charts/
+  - name: jetstack
+    url: https://charts.jetstack.io
+  # Ebrianne charts, https://ebrianne.github.io/helm-charts
+  - name: ebrianne.github.io
+    url: https://ebrianne.github.io/helm-charts
+
+namespace: ingress
+
+releases:
+  # Certificate management controller
+  - name: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.2.0
+    set:
+      - name: installCRDs
+        value: true
+
+  # ACME webhook for DuckDNS
+  - name: cert-manager-webhook-duckdns
+    chart: ebrianne.github.io/cert-manager-webhook-duckdns
+    values:
+      - ../values/cert-manager-duckdns.yaml.gotmpl
+    needs:
+      - ingress/cert-manager
+
+values:
+  - ../.env.{{ .Environment.Name }}.yaml
