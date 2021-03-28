@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: drone-gitea-setup-wrapper
+data:
+  drone-gitea-setup.sh: |
+    {{- .Files.Get "scripts/drone-gitea-setup.sh" | nindent 4 }}

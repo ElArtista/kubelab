@@ -1,0 +1,35 @@
+repositories:
+  # Gitea charts, https://gitea.com/gitea/helm-chart/
+  - name: gitea-charts
+    url: https://dl.gitea.io/charts
+  # Drone charts, https://github.com/drone/charts
+  - name: drone
+    url: https://charts.drone.io
+
+namespace: devtools
+
+releases:
+  # Git service
+  - name: gitea
+    chart: gitea-charts/gitea
+    values:
+      - ../values/gitea.yaml.gotmpl
+
+  # Drone service
+  - name: drone
+    chart: drone/drone
+    values:
+      - ../values/drone.yaml.gotmpl
+
+  # Drone runner service
+  - name: drone-runner
+    chart: drone/drone-runner-kube
+    values:
+      - ../values/drone-runner.yaml.gotmpl
+
+  # Drone gitea setup
+  - name: drone-gitea-setup
+    chart: ../charts/drone-gitea-setup
+
+values:
+  - ../.env.{{ .Environment.Name }}.yaml

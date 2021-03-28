@@ -1,0 +1,24 @@
+env:
+  DRONE_DOMAIN: {{ .Values.host.internal }}
+  DRONE_SERVER_HOST: drone.{{ .Values.host.internal }}
+  DRONE_SERVER_PROTO: http
+  DRONE_RPC_SECRET: {{ .Values.drone.secret }}
+
+ingress:
+  enabled: true
+  hosts:
+    - host: drone.{{ .Values.host.internal }}
+      paths:
+        - "/"
+
+extraVolumes:
+  - name: wrapper
+    configMap:
+      name: drone-gitea-setup-wrapper
+      defaultMode: 0744
+
+extraVolumeMounts:
+  - name: wrapper
+    mountPath: /scripts
+
+customCommand: ["/bin/sh", "-c", "apk add curl jq && . /scripts/drone-gitea-setup.sh && /bin/drone-server"]
