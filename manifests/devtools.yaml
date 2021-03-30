@@ -8,6 +8,9 @@ repositories:
   # Harbor chart, https://github.com/goharbor/harbor-helm
   - name: harbor
     url: https://helm.goharbor.io
+  # Keel chart, https://github.com/keel-hq/keel/tree/master/chart/keel
+  - name: keel
+    url: https://charts.keel.sh
 
 namespace: devtools
 
@@ -39,6 +42,12 @@ releases:
     chart: harbor/harbor
     values:
       - ../values/harbor.yaml.gotmpl
+
+  # Keel service
+  - name: keel
+    chart: keel/keel
+    values:
+      - ../values/keel.yaml.gotmpl
 
 values:
   - ../.env.{{ .Environment.Name }}.yaml

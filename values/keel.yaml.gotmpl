@@ -1,0 +1,25 @@
+image:
+  tag: latest
+
+insecureRegistry: true
+
+helmProvider:
+  enabled: true
+  version: "v3"
+
+service:
+  enabled: true
+  type: ClusterIP
+  externalPort: 9300
+
+basicauth:
+  enabled: true
+  user: "admin"
+  password: "admin"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: keel.{{ .Values.host.internal }}
+      paths:
+        - /
