@@ -25,5 +25,11 @@ releases:
     needs:
       - ingress/cert-manager
 
+  # Local CA for TLS certificates
+  - name: local-ca
+    chart: ../charts/local-ca
+    needs:
+      - ingress/cert-manager
+
 values:
   - ../.env.{{ .Environment.Name }}.yaml

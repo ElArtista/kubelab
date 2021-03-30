@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: local-ca
+spec:
+  isCA: true
+  commonName: local-ca.svc.cluster.local
+  secretName: local-ca-tls
+  usages:
+    - server auth
+    - client auth
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
