@@ -5,6 +5,9 @@ repositories:
   # Drone charts, https://github.com/drone/charts
   - name: drone
     url: https://charts.drone.io
+  # Harbor chart, https://github.com/goharbor/harbor-helm
+  - name: harbor
+    url: https://helm.goharbor.io
 
 namespace: devtools
 
@@ -30,6 +33,12 @@ releases:
   # Drone gitea setup
   - name: drone-gitea-setup
     chart: ../charts/drone-gitea-setup
+
+  # Harbor service
+  - name: harbor
+    chart: harbor/harbor
+    values:
+      - ../values/harbor.yaml.gotmpl
 
 values:
   - ../.env.{{ .Environment.Name }}.yaml
