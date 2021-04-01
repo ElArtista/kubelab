@@ -7,6 +7,7 @@ ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
 # Helper to manipulate an IP addresses
 require 'ipaddr'
+require 'digest'
 
 # Configuration
 NUM_SERVERS = ENV['K3S_NUM_SERVERS'] || 1
@@ -35,11 +36,12 @@ Vagrant.configure("2") do |config|
   server_node_ip_address = IPAddr.new k3s_first_server_node_ip
   (1..NUM_SERVERS).each do |i|
     vm_name = "k3s-master-#{'%02d' % i}"
+    mc_addr = "52:54:00:#{(Digest::SHA256.hexdigest vm_name)[0..5].scan(/.{2}/).join(':')}"
     config.vm.define vm_name do |s|
       setup_node(s.vm)
       node_ip = server_node_ip_address.to_s; server_node_ip_address = server_node_ip_address.succ
       s.vm.hostname = "#{vm_name}.cluster.local"
-      s.vm.network "public_network", :dev => "br0", :mode => "bridge", :type => "bridge"
+      s.vm.network "public_network", :dev => "br0", :mode => "bridge", :type => "bridge", :mac => mc_addr
       s.vm.network "private_network", ip: node_ip
       s.vm.provision "shell", inline: <<-SHELL
         # Install k3s
