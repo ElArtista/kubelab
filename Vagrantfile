@@ -44,19 +44,13 @@ Vagrant.configure("2") do |config|
       s.vm.network "public_network", :dev => "br0", :mode => "bridge", :type => "bridge", :mac => mc_addr
       s.vm.network "private_network", ip: node_ip
       s.vm.provision "shell", inline: <<-SHELL
-        # Install k3s
-        sed -i 's/v[[:digit:]]\\..*\\//edge\\//g' /etc/apk/repositories
-        apk add --no-cache k3s
-
         # Set k3s options
         export K3S_EXEC=server
         export K3S_OPTS=--node-ip=#{node_ip}
         export K3S_TOKEN=#{k3s_token}
-        env | awk '/^K3S_/{print "export " $0}' | tee -a /etc/conf.d/k3s >/dev/null
 
-        # Enable and start k3s service
-        rc-update add k3s
-        service k3s start
+        # Install k3s
+        curl -sfL https://get.k3s.io | sh -s - $K3S_EXEC $K3S_OPTS
       SHELL
     end
   end
@@ -70,20 +64,14 @@ Vagrant.configure("2") do |config|
       s.vm.hostname = "#{vm_name}.cluster.local"
       s.vm.network "private_network", ip: node_ip
       s.vm.provision "shell", inline: <<-SHELL
-        # Install k3s
-        sed -i 's/v[[:digit:]]\\..*\\//edge\\//g' /etc/apk/repositories
-        apk add --no-cache k3s
-
         # Set k3s options
         export K3S_EXEC=agent
         export K3S_OPTS=--node-ip=#{node_ip}
         export K3S_TOKEN=#{k3s_token}
         export K3S_URL=https://#{k3s_first_server_node_ip}:6443/
-        env | awk '/^K3S_/{print "export " $0}' | tee -a /etc/conf.d/k3s >/dev/null
 
-        # Enable and start k3s service
-        rc-update add k3s
-        service k3s start
+        # Install k3s
+        curl -sfL https://get.k3s.io | sh -s - $K3S_EXEC $K3S_OPTS
       SHELL
     end
   end
