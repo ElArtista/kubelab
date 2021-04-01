@@ -8,6 +8,7 @@ ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 # Helper to manipulate an IP addresses
 require 'ipaddr'
 require 'digest'
+require 'base64'
 
 # Configuration
 NUM_SERVERS = ENV['K3S_NUM_SERVERS'] || 1
@@ -30,6 +31,18 @@ def setup_node(vm)
     sed -ri '/\\sswap\\s/s/^#?/#/' /etc/fstab
     swapoff -a
   SHELL
+end
+
+def install_ca(vm)
+  enc_cert = `kubectl -n ingress get secret local-ca-tls -o jsonpath='{.data.tls\\.crt}'`
+  local_ca = Base64.decode64(enc_cert)
+  if !local_ca.empty?
+    vm.provision "local-ca", type: "shell", run: "never", inline: <<-SHELL
+      echo Installing local CA certificate...
+      echo -n "#{local_ca}" > /usr/local/share/ca-certificates/local-ca.pem
+      update-ca-certificates
+    SHELL
+  end
 end
 
 Vagrant.configure("2") do |config|
@@ -75,4 +88,6 @@ Vagrant.configure("2") do |config|
       SHELL
     end
   end
+
+  install_ca(config.vm)
 end
