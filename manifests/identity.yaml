@@ -1,0 +1,16 @@
+repositories:
+  # Authelia chart, https://github.com/authelia/chartrepo
+  - name: authelia
+    url: https://charts.authelia.com
+
+namespace: identity
+
+releases:
+  # Identity and access management
+  - name: authelia
+    chart: authelia/authelia
+    values:
+      - ../values/authelia.yaml.gotmpl
+
+values:
+  - ../.env.{{ .Environment.Name }}.yaml

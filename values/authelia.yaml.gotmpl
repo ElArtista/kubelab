@@ -1,0 +1,49 @@
+domain: {{ .Values.host.internal }}
+
+ingress:
+  enabled: true
+  subdomain: auth
+  tls:
+    enabled: true
+
+pod:
+  kind: StatefulSet
+
+  extraVolumes:
+    - name: users-db
+      configMap:
+        name: users-db
+
+  extraVolumeMounts:
+    - mountPath: '/config/users_database.yml'
+      subPath: users.yaml
+      name: users-db
+      readOnly: false
+
+configMap:
+  theme: dark
+
+  authentication_backend:
+    ldap:
+      enabled: false
+    file:
+      enabled: true
+
+  access_control:
+    default_policy: one_factor
+
+  session:
+    redis:
+      enabled: false
+
+  storage:
+    local:
+      enabled: true
+    postgres:
+      enabled: false
+
+  notifier:
+    filesystem:
+      enabled: true
+    smtp:
+      enabled: false
