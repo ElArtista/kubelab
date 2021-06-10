@@ -10,5 +10,15 @@ expose:
     certSource: secret
     secret:
       secretName: harbor-ingress-tls
+
+trivy:
+  enabled: false
+
+notary:
+  enabled: false
+
+chartmuseum:
+  enabled: false
+
 externalURL: https://harbor.{{ .Values.host.internal }}
 secretKey: {{ .Values.harbor.secret }}
