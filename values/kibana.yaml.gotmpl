@@ -1,0 +1,14 @@
+resources:
+  requests:
+    cpu: "100m"
+    memory: "512M"
+  limits:
+    cpu: "1000m"
+    memory: "512M"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: kibana.{{ .Values.host.internal }}
+      paths:
+        - path: /

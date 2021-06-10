@@ -1,0 +1,35 @@
+repositories:
+  # Elastic charts, https://github.com/elastic/helm-charts
+  - name: elastic
+    url: https://helm.elastic.co
+  # Fluent charts, https://github.com/fluent/helm-charts
+  - name: fluent
+    url: https://fluent.github.io/helm-charts
+
+namespace: logging
+
+releases:
+  # Elastic search
+  - name: elastic-search
+    chart: elastic/elasticsearch
+    values:
+      - ../values/elastic-search.yaml.gotmpl
+
+  # Fluent bit
+  - name: fluent-bit
+    chart: fluent/fluent-bit
+    values:
+      - ../values/fluent-bit.yaml.gotmpl
+    needs:
+      - logging/elastic-search
+
+  # Kibana
+  - name: kibana
+    chart: elastic/kibana
+    values:
+      - ../values/kibana.yaml.gotmpl
+    needs:
+      - logging/elastic-search
+
+values:
+  - ../.env.{{ .Environment.Name }}.yaml
