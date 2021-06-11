@@ -5,6 +5,9 @@ repositories:
   # Ebrianne charts, https://ebrianne.github.io/helm-charts
   - name: ebrianne.github.io
     url: https://ebrianne.github.io/helm-charts
+  # Appscode charts, https://github.com/appscode/charts
+  - name: appscode
+    url: https://charts.appscode.com/stable/
 
 namespace: ingress
 
@@ -30,6 +33,10 @@ releases:
     chart: ../charts/local-ca
     needs:
       - ingress/cert-manager
+
+  # Sync operator for ConfigMaps and Secrets across namespaces and/or clusters
+  - name: kubed
+    chart: appscode/kubed
 
 values:
   - ../.env.{{ .Environment.Name }}.yaml
