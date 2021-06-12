@@ -2,6 +2,9 @@ domain: {{ .Values.host.internal }}
 
 ingress:
   enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: local-ca-issuer
+
   subdomain: auth
   tls:
     enabled: true

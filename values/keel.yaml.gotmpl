@@ -18,7 +18,13 @@ basicauth:
 
 ingress:
   enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: local-ca-issuer
   hosts:
     - host: keel.{{ .Values.host.internal }}
       paths:
         - /
+  tls:
+    - hosts:
+        - keel.{{ .Values.host.internal }}
+      secretName: keel-tls

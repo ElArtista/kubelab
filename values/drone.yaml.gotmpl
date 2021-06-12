@@ -6,10 +6,16 @@ env:
 
 ingress:
   enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: local-ca-issuer
   hosts:
     - host: drone.{{ .Values.host.internal }}
       paths:
         - "/"
+  tls:
+    - hosts:
+        - drone.{{ .Values.host.internal }}
+      secretName: drone-tls
 
 extraVolumes:
   - name: wrapper

@@ -6,5 +6,11 @@ gitea:
 
 ingress:
   enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: local-ca-issuer
   hosts:
     - gitea.{{ .Values.host.internal }}
+  tls:
+    - hosts:
+        - gitea.{{ .Values.host.internal }}
+      secretName: gitea-tls
