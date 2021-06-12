@@ -22,9 +22,16 @@ extraVolumes:
     configMap:
       name: drone-gitea-setup-wrapper
       defaultMode: 0744
+  - name: local-ca-vol
+    secret:
+      secretName: local-ca-tls
 
 extraVolumeMounts:
-  - name: wrapper
-    mountPath: /scripts
+  - mountPath: /scripts
+    name: wrapper
+  - mountPath: /usr/local/share/ca-certificates/local-ca.pem
+    subPath: tls.crt
+    name: local-ca-vol
+    readOnly: true
 
 customCommand: ["/bin/sh", "-c", "apk add curl jq && . /scripts/drone-gitea-setup.sh && /bin/drone-server"]
