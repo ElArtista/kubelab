@@ -1,7 +1,7 @@
 env:
   DRONE_DOMAIN: {{ .Values.host.internal }}
   DRONE_SERVER_HOST: drone.{{ .Values.host.internal }}
-  DRONE_SERVER_PROTO: http
+  DRONE_SERVER_PROTO: https
   DRONE_RPC_SECRET: {{ .Values.drone.secret }}
 
 ingress:

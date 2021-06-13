@@ -3,6 +3,8 @@ gitea:
     APP_NAME: "Gitea: With a cup of tea."
     repository.pull-request:
       WORK_IN_PROGRESS_PREFIXES: "WIP:,[WIP]:"
+    server:
+      ROOT_URL: https://gitea.{{ .Values.host.internal }}
 
 ingress:
   enabled: true
