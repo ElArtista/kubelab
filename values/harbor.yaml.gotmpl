@@ -4,6 +4,7 @@ expose:
     hosts:
       core: harbor.{{ .Values.host.internal }}
     annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: local-ca-issuer
   tls:
     enabled: true

@@ -3,6 +3,7 @@ domain: {{ .Values.host.internal }}
 ingress:
   enabled: true
   annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: local-ca-issuer
 
   subdomain: auth
