@@ -6,6 +6,13 @@ gitea:
     server:
       ROOT_URL: https://gitea.{{ .Values.host.internal }}
 
+  podAnnotations:
+    inject/command: '[
+      "/bin/sh",
+      "-c",
+      "update-ca-certificates && /usr/bin/entrypoint"
+    ]'
+
 ingress:
   enabled: true
   annotations:

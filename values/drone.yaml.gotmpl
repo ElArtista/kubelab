@@ -17,6 +17,13 @@ ingress:
         - drone.{{ .Values.host.internal }}
       secretName: drone-tls
 
+podAnnotations:
+  inject/command: '[
+    "/bin/sh",
+    "-c",
+    "apk add curl jq && update-ca-certificates && . /scripts/drone-gitea-setup.sh && /bin/drone-server"
+  ]'
+
 extraVolumes:
   - name: wrapper
     configMap:
@@ -33,5 +40,3 @@ extraVolumeMounts:
     subPath: tls.crt
     name: local-ca-vol
     readOnly: true
-
-customCommand: ["/bin/sh", "-c", "apk add curl jq && . /scripts/drone-gitea-setup.sh && /bin/drone-server"]
