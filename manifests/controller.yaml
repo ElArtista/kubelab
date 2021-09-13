@@ -1,0 +1,31 @@
+repositories:
+  # MetalLB charts, https://github.com/metallb/metallb/tree/main/charts/
+  - name: metallb
+    url: https://metallb.github.io/metallb
+  # Nginx charts, https://github.com/kubernetes/ingress-nginx/tree/main/charts/
+  - name: nginx
+    url: https://kubernetes.github.io/ingress-nginx
+
+namespace: kube-system
+
+releases:
+  # MetalLB load balancer
+  - name: metallb
+    chart: metallb/metallb
+    values:
+      - configInline:
+          address-pools:
+            - name: default
+              protocol: layer2
+              addresses:
+                - 192.168.1.96/28
+
+  # Nginx ingress controller
+  - name: nginx
+    chart: nginx/ingress-nginx
+    values:
+      - controller:
+          watchIngressWithoutClass: true
+
+values:
+  - ../.env.{{ .Environment.Name }}.yaml
