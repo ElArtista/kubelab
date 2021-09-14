@@ -19,7 +19,10 @@ ingress:
     ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: local-ca-issuer
   hosts:
-    - gitea.{{ .Values.host.internal }}
+    - host: gitea.{{ .Values.host.internal }}
+      paths:
+        - path: /
+          pathType: Prefix
   tls:
     - hosts:
         - gitea.{{ .Values.host.internal }}
