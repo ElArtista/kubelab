@@ -27,5 +27,18 @@ releases:
       - controller:
           watchIngressWithoutClass: true
 
+  # Nginx public ingress controller
+  - name: nginx-public
+    chart: nginx/ingress-nginx
+    values:
+      - controller:
+          ingressClassResource:
+            name: nginx-public
+            enabled: true
+            controllerValue: "k8s.io/ingress-nginx-public"
+          ingressClassByName: true
+          extraArgs:
+            ingress-class: "nginx-public"
+
 values:
   - ../.env.{{ .Environment.Name }}.yaml
