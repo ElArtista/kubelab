@@ -2,6 +2,9 @@ repositories:
   # Authelia chart, https://github.com/authelia/chartrepo
   - name: authelia
     url: https://charts.authelia.com
+  # OpenLDAP chart, https://github.com/jp-gouin/helm-openldap
+  - name: openldap
+    url: https://jp-gouin.github.io/helm-openldap/
 
 namespace: identity
 
@@ -11,6 +14,12 @@ releases:
     chart: authelia/authelia
     values:
       - ../values/authelia.yaml.gotmpl
+
+  # Directory service
+  - name: openldap
+    chart: openldap/openldap-stack-ha
+    values:
+      - ../values/openldap.yaml.gotmpl
 
 values:
   - ../.env.{{ .Environment.Name }}.yaml

@@ -1,0 +1,13 @@
+nameOverride: openldap
+replicaCount: 1
+
+env:
+ LDAP_DOMAIN: "{{ .Values.host.internal }}"
+
+adminPassword: hellothere
+configPassword: hellothere
+
+ltb-passwd:
+  enabled : false
+phpldapadmin:
+  enabled: false
