@@ -59,3 +59,10 @@ secret:
   ldap:
     key: LDAP_PASSWORD
     value: "hellothere"
+  oidcHMACSecret:
+    key: OIDC_HMAC_SECRET
+    value: {{ randAlphaNum 32 }}
+  oidcPrivateKey:
+    key: OIDC_PRIVATE_KEY
+    value: |
+      {{ genPrivateKey "rsa" | nindent 6 }}
