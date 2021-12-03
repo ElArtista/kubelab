@@ -1,0 +1,18 @@
+dn: ou=users,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: cn=james,ou=users,dc=example,dc=com
+objectclass: top
+objectclass: inetorgPerson
+uid: james
+cn: james
+sn: James Bond
+mail: james.bond@example.com
+userpassword: piou
