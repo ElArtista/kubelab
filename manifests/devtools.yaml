@@ -5,6 +5,9 @@ repositories:
   # Drone charts, https://github.com/drone/charts
   - name: drone
     url: https://charts.drone.io
+  # Docker registry chart, https://github.com/twuni/docker-registry.helm
+  - name: twuni
+    url: https://helm.twun.io
   # Harbor chart, https://github.com/goharbor/harbor-helm
   - name: harbor
     url: https://helm.goharbor.io
@@ -37,11 +40,17 @@ releases:
   - name: drone-gitea-setup
     chart: ../charts/drone-gitea-setup
 
-  # Harbor service
-  - name: harbor
-    chart: harbor/harbor
+  # Docker registry service
+  - name: registry
+    chart: twuni/docker-registry
     values:
-      - ../values/harbor.yaml.gotmpl
+      - ../values/registry.yaml.gotmpl
+
+  # Harbor service
+  #- name: harbor
+  #  chart: harbor/harbor
+  #  values:
+  #    - ../values/harbor.yaml.gotmpl
 
   # Keel service
   - name: keel
