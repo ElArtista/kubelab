@@ -6,6 +6,14 @@ gitea:
     server:
       ROOT_URL: https://gitea.{{ .Values.host.internal }}
 
+  oauth:
+    enabled: true
+    name: 'oidc'
+    provider: 'openidconnect'
+    key: 'gitea'
+    secret: 'secret'
+    autoDiscoverUrl: 'https://auth.{{ .Values.host.internal }}/.well-known/openid-configuration'
+
   podAnnotations:
     inject/command: '[
       "/bin/sh",

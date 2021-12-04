@@ -55,6 +55,16 @@ configMap:
     smtp:
       enabled: false
 
+  identity_providers:
+    oidc:
+      enabled: true
+      clients:
+        - id: gitea
+          secret: secret
+          authorization_policy: one_factor
+          redirect_uris:
+            - https://gitea.{{ .Values.host.internal }}/user/oauth2/oidc/callback
+
 secret:
   ldap:
     key: LDAP_PASSWORD
