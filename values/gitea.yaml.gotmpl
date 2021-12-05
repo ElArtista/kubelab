@@ -9,7 +9,7 @@ gitea:
   oauth:
     enabled: true
     name: 'oidc'
-    provider: 'openidconnect'
+    provider: 'openidConnect'
     key: 'gitea'
     secret: 'secret'
     autoDiscoverUrl: 'https://auth.{{ .Values.host.internal }}/.well-known/openid-configuration'
