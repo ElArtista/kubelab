@@ -15,11 +15,7 @@ gitea:
     autoDiscoverUrl: 'https://auth.{{ .Values.host.internal }}/.well-known/openid-configuration'
 
   podAnnotations:
-    inject/command: '[
-      "/bin/sh",
-      "-c",
-      "update-ca-certificates && /usr/bin/entrypoint"
-    ]'
+    inject/certificate: 'local-ca-tls'
 
 ingress:
   enabled: true
@@ -35,14 +31,3 @@ ingress:
     - hosts:
         - gitea.{{ .Values.host.internal }}
       secretName: gitea-tls
-
-extraVolumes:
-  - name: local-ca-vol
-    secret:
-      secretName: local-ca-tls
-
-extraVolumeMounts:
-  - mountPath: /usr/local/share/ca-certificates/local-ca.pem
-    subPath: tls.crt
-    name: local-ca-vol
-    readOnly: true
