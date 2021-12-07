@@ -1,4 +1,4 @@
-env:
+config:
   DRONE_DOMAIN: {{ .Values.host.internal }}
   DRONE_SERVER_HOST: drone.{{ .Values.host.internal }}
   DRONE_SERVER_PROTO: https
@@ -12,7 +12,8 @@ ingress:
   hosts:
     - host: drone.{{ .Values.host.internal }}
       paths:
-        - "/"
+        - path: /
+          pathType: ImplementationSpecific
   tls:
     - hosts:
         - drone.{{ .Values.host.internal }}

@@ -2,9 +2,9 @@ repositories:
   # Gitea charts, https://gitea.com/gitea/helm-chart/
   - name: gitea-charts
     url: https://dl.gitea.io/charts
-  # Drone charts, https://github.com/drone/charts
+  # Drone charts, https://github.com/volker-raschek/drone-charts
   - name: drone
-    url: https://charts.drone.io
+    url: https://charts.cryptic.systems/volker.raschek
   # Docker registry chart, https://github.com/twuni/docker-registry.helm
   - name: twuni
     url: https://helm.twun.io
@@ -32,7 +32,7 @@ releases:
 
   # Drone runner service
   - name: drone-runner
-    chart: drone/drone-runner-kube
+    chart: drone/drone-runner
     values:
       - ../values/drone-runner.yaml.gotmpl
 
