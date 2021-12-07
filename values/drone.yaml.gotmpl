@@ -23,22 +23,7 @@ podAnnotations:
   inject/command: '[
     "/bin/sh",
     "-c",
-    "apk add curl jq && update-ca-certificates && . /scripts/drone-gitea-setup.sh && /bin/drone-server"
+    "apk add curl jq && . /scripts/drone-gitea-setup.sh && /bin/drone-server"
   ]'
-
-extraVolumes:
-  - name: wrapper
-    configMap:
-      name: drone-gitea-setup-wrapper
-      defaultMode: 0744
-  - name: local-ca-vol
-    secret:
-      secretName: local-ca-tls
-
-extraVolumeMounts:
-  - mountPath: /scripts
-    name: wrapper
-  - mountPath: /usr/local/share/ca-certificates/local-ca.pem
-    subPath: tls.crt
-    name: local-ca-vol
-    readOnly: true
+  inject/mounts: '["c:drone-gitea-setup-wrapper:/scripts"]'
+  inject/certificate: 'local-ca-tls'
