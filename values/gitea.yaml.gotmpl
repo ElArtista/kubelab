@@ -1,3 +1,18 @@
+image:
+  repository: gitea
+  tag: latest
+
+postgresql:
+  image:
+    repository: postgres
+    tag: latest
+
+memcached:
+  image:
+    repository: memcached
+    tag: latest
+  arguments: []
+
 gitea:
   config:
     APP_NAME: "Gitea: With a cup of tea."
