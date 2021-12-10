@@ -1,0 +1,20 @@
+global:
+  image:
+    repository: argocd
+    tag: latest
+
+server:
+  extraArgs:
+    - --insecure
+
+  ingress:
+    enabled: true
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: local-ca-issuer
+    hosts:
+      - argocd.{{ .Values.host.internal }}
+    tls:
+      - hosts:
+          - argocd.{{ .Values.host.internal }}
+        secretName: argocd-tls

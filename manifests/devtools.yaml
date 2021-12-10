@@ -11,6 +11,9 @@ repositories:
   # Harbor chart, https://github.com/goharbor/harbor-helm
   - name: harbor
     url: https://helm.goharbor.io
+  # Argo charts, https://github.com/argoproj/argo-helm
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
   # Keel chart, https://github.com/keel-hq/keel/tree/master/chart/keel
   - name: keel
     url: https://charts.keel.sh
@@ -51,6 +54,12 @@ releases:
   #  chart: harbor/harbor
   #  values:
   #    - ../values/harbor.yaml.gotmpl
+
+  # ArgoCD service
+  - name: argocd
+    chart: argo/argo-cd
+    values:
+      - ../values/argocd.yaml.gotmpl
 
   # Keel service
   - name: keel
