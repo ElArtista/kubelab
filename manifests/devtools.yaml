@@ -61,6 +61,12 @@ releases:
     values:
       - ../values/argocd.yaml.gotmpl
 
+  # ArgoCD Image Updater service
+  - name: argocd-image-updater
+    chart: argo/argocd-image-updater
+    values:
+      - ../values/argocd-image-updater.yaml.gotmpl
+
   # Keel service
   - name: keel
     chart: keel/keel

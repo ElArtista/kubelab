@@ -1,0 +1,12 @@
+image:
+  repository: argocd-image-updater
+  tag: "latest"
+
+config:
+  logLevel: "debug"
+
+  registries:
+    - name: registry
+      api_url: http://registry-docker-registry:5000
+      ping: yes
+      defaultns: library
