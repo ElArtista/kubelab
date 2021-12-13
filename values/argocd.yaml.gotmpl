@@ -7,6 +7,10 @@ server:
   extraArgs:
     - --insecure
 
+  podAnnotations:
+    inject/certificate: 'local-ca-tls'
+    inject/certificate-image: 'alpine'
+
   ingress:
     enabled: true
     annotations:
