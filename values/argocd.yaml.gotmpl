@@ -18,3 +18,18 @@ server:
       - hosts:
           - argocd.{{ .Values.host.internal }}
         secretName: argocd-tls
+
+  config:
+    url: https://argocd.{{ .Values.host.internal }}
+    oidc.config: |
+      name: Authelia
+      issuer: https://auth.{{ .Values.host.internal }}
+      clientID: argocd
+      clientSecret: secret
+      requestedIDTokenClaims:
+        groups:
+          essential: true
+      requestedScopes:
+        - openid
+        - profile
+        - email

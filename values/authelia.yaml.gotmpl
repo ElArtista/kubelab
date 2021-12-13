@@ -64,6 +64,11 @@ configMap:
           authorization_policy: one_factor
           redirect_uris:
             - https://gitea.{{ .Values.host.internal }}/user/oauth2/oidc/callback
+        - id: argocd
+          secret: secret
+          authorization_policy: one_factor
+          redirect_uris:
+            - https://argocd.{{ .Values.host.internal }}/auth/callback
 
 secret:
   ldap:
