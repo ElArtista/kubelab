@@ -14,9 +14,6 @@ repositories:
   # Argo charts, https://github.com/argoproj/argo-helm
   - name: argo
     url: https://argoproj.github.io/argo-helm
-  # Keel chart, https://github.com/keel-hq/keel/tree/master/chart/keel
-  - name: keel
-    url: https://charts.keel.sh
 
 namespace: devtools
 
@@ -66,12 +63,6 @@ releases:
     chart: argo/argocd-image-updater
     values:
       - ../values/argocd-image-updater.yaml.gotmpl
-
-  # Keel service
-  - name: keel
-    chart: keel/keel
-    values:
-      - ../values/keel.yaml.gotmpl
 
 values:
   - ../.env.{{ .Environment.Name }}.yaml
