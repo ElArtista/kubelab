@@ -8,9 +8,6 @@ repositories:
   # Docker registry chart, https://github.com/twuni/docker-registry.helm
   - name: twuni
     url: https://helm.twun.io
-  # Harbor chart, https://github.com/goharbor/harbor-helm
-  - name: harbor
-    url: https://helm.goharbor.io
   # Argo charts, https://github.com/argoproj/argo-helm
   - name: argo
     url: https://argoproj.github.io/argo-helm
@@ -45,12 +42,6 @@ releases:
     chart: twuni/docker-registry
     values:
       - ../values/registry.yaml.gotmpl
-
-  # Harbor service
-  #- name: harbor
-  #  chart: harbor/harbor
-  #  values:
-  #    - ../values/harbor.yaml.gotmpl
 
   # ArgoCD service
   - name: argocd
