@@ -15,7 +15,6 @@ releases:
   # Certificate management controller
   - name: cert-manager
     chart: jetstack/cert-manager
-    version: v1.5.3
     set:
       - name: installCRDs
         value: true
